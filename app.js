@@ -16,11 +16,13 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
+const axios = require("axios");
 
 const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 const MongoStore = require("connect-mongo");
+const { func } = require("joi");
 
 // const dbUrl = "mongodb://127.0.0.1:27017/yelp-camp";
 const dbUrl = process.env.DB_URL;
@@ -152,3 +154,26 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`YelpCamp app listening on port ${port}`);
 });
+
+// Keep the app active (on Render)
+const url = `https://yelpcamp-nznf.onrender.com/`;
+const interval = 30000;
+function reloadWebsite() {
+  axios
+    .get(url)
+    .then((response) => {
+      console.log(
+        `Reloaded at ${new Date().toISOString()}: Status Code ${
+          response.status
+        }`
+      );
+    })
+    .catch((error) => {
+      console.error(
+        `Error reloading at ${new Date().toISOString()}:`,
+        error.message
+      );
+    });
+}
+
+setInterval(reloadWebsite, interval);
