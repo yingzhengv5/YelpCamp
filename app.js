@@ -156,7 +156,7 @@ app.listen(port, () => {
 });
 
 // Keep the app active (on Render)
-const url = `https://yelpcamp-nznf.onrender.com/`;
+const url = `https://yelpcamp-hvd0.onrender.com/`;
 const interval = 30000;
 function reloadWebsite() {
   axios
