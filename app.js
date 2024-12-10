@@ -157,7 +157,7 @@ app.listen(port, () => {
 
 // Keep the app active (on Render)
 const url = `https://yelpcamp-hvd0.onrender.com/`;
-const interval = 30000;
+const interval = 10 * 60 * 1000;
 function reloadWebsite() {
   axios
     .get(url)
